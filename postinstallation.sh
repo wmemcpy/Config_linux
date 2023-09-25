@@ -25,7 +25,9 @@ function main() {
         sudo dracut --force
         sudo dnf install akmod-nvidia libva-vdpau-driver libva-utils xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-cuda vulkan
     elif [[ "${gpu}" == "amd" ]]; then
-        sudo dnf install xorg-x11-drv-amdgpu
+        sudo dnf install mesa-libOpenCL mesa-libd3d mesa-va-drivers mesa-vdpau-drivers
+ hip hip-devel hsakmt rocm-clinfo rocm-cmake rocm-comgr rocm-device-libs rocm-hip rocm-hip-devel rocm-opencl rocm-opencl-devel rocm-runtime rocm-smi rocminfo
+        
     fi
 
     dnf install -y gstreamer1-plugins-{base,good,bad-free,good-extras,bad-free-extras,ugly-free} gstreamer1-libav
