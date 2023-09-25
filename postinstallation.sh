@@ -25,8 +25,7 @@ function main() {
         sudo dracut --force
         sudo dnf install akmod-nvidia libva-vdpau-driver libva-utils xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-cuda vulkan
     elif [[ "${gpu}" == "amd" ]]; then
-        sudo dnf install mesa-libOpenCL mesa-libd3d mesa-va-drivers mesa-vdpau-drivers
- hip hip-devel hsakmt rocm-clinfo rocm-cmake rocm-comgr rocm-device-libs rocm-hip rocm-hip-devel rocm-opencl rocm-opencl-devel rocm-runtime rocm-smi rocminfo
+        sudo dnf install mesa-libOpenCL mesa-libd3d mesa-va-drivers mesa-vdpau-drivers hip hip-devel hsakmt rocm-clinfo rocm-cmake rocm-comgr rocm-device-libs rocm-hip rocm-hip-devel rocm-opencl rocm-opencl-devel rocm-runtime rocm-smi rocminfo
         
     fi
 
