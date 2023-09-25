@@ -40,7 +40,6 @@ function main() {
     dnf swap mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
     dnf swap mesa-vdpau-drivers.i686 mesa-vdpau-drivers-freeworld.i686
     dnf swap ffmpeg-free ffmpeg --allowerasing
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 main
