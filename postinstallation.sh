@@ -36,10 +36,12 @@ function main() {
     dnf -y swap mesa-va-drivers mesa-va-drivers-freeworld
     dnf -y swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
-    dnf insall steam lutris wine
+    dnf install steam lutris wine
     dnf swap mesa-va-drivers.i686 mesa-va-drivers-freeworld.i686
     dnf swap mesa-vdpau-drivers.i686 mesa-vdpau-drivers-freeworld.i686
     dnf swap ffmpeg-free ffmpeg --allowerasing
+
+    dnf install mangohud goverlay
 }
 
 main
