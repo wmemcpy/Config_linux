@@ -1,5 +1,17 @@
 import subprocess
 import os
+import shutil
+from pathlib import Path
+
+def install_flatpak():
+    try:
+        subprocess.run(['sudo', 'pacman', '-S', '--needed', '--noconfirm', 'flatpak'], stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL)
+        subprocess.run(
+            ['flatpak', 'remote-add', '--if-not-exists', 'flathub', 'https://dl.flathub.org/repo/flathub.flatpakrepo'],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception as e:
+        print(f"Erreur lors de l'installation de Flatpak : {e}")
 
 def config_pacman():
     uncomment: list[str] = ["#VerbosePkgLists", "#ParallelDownloads", "#Color"]
@@ -20,7 +32,8 @@ def install_kernel_headers():
         kernels = [f for f in os.listdir('/boot') if f.startswith('vmlinuz')]
         for kernel in kernels:
             kernel_name = kernel.replace('vmlinuz-', '')
-            subprocess.run(['sudo', 'pacman', '-S', '--needed', '--noconfirm', f"{kernel_name}-headers"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            subprocess.run(['sudo', 'pacman', '-S', '--needed', '--noconfirm', f"{kernel_name}-headers"],
+                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     except Exception as e:
         print(f"Erreur : {e}")
 
@@ -48,6 +61,17 @@ def install_server_sound():
 
     install_command = ['sudo', 'pacman', '-S', '--needed', '--noconfirm'] + install_packages
     subprocess.run(install_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def setup_grub():
+    print("Configuration de grub.")
+    hook_folder = Path("/etc/pacman.d/hooks/")
+    hook_file = "grub.hook"
+    hook_src = Path(__file__).parent.parent.parent / "data" / hook_file
+
+    hook_folder.mkdir(parents=True, exist_ok=True)
+    shutil.copy(hook_src, hook_folder / hook_file)
+
 
 def install_firewall():
     subprocess.run(['yay', '-S', '--needed', '--noconfirm', 'ufw'], stdout=subprocess.DEVNULL,

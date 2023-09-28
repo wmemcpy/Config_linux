@@ -12,6 +12,7 @@ categories = {
 
 selected = {category: [False] * len(options) for category, options in categories.items()}
 
+
 class CustomCheckBox(urwid.CheckBox):
     def __init__(self, label, category, index):
         super().__init__(label)
@@ -22,6 +23,7 @@ class CustomCheckBox(urwid.CheckBox):
         super().toggle_state()
         selected[self.category][self.index] = not selected[self.category][self.index]
 
+
 def find_script_file(option):
     option_lower = option.lower()
     for script_file in glob.glob("./src/arch/*.py"):
@@ -29,6 +31,8 @@ def find_script_file(option):
         if script_name.lower() == option_lower:
             return script_name + '.py'
     return None
+
+
 def execute_scripts(button):
     for category, options in categories.items():
         for i, option in enumerate(options):
@@ -41,9 +45,11 @@ def execute_scripts(button):
                     print(f"No script found for {option}")
     clear_and_exit()
 
+
 def clear_and_exit(button=None):
     os.system('clear')
     raise urwid.ExitMainLoop()
+
 
 def create_menu():
     items = []
@@ -56,6 +62,7 @@ def create_menu():
     items.append(urwid.Button("Installer", on_press=execute_scripts))
     items.append(urwid.Button("Annuler", on_press=clear_and_exit))
     return urwid.ListBox(urwid.SimpleFocusListWalker(items))
+
 
 menu = create_menu()
 loop = urwid.MainLoop(menu)

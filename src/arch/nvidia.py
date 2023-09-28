@@ -7,10 +7,12 @@ import subprocess
 def hook():
     hook_folder = "/etc/pacman.d/hooks/"
     hook_file = "nvidia.hook"
-    hook_src = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../data/nvidia.hook")
 
     try:
-        shutil.copy(hook_src, os.path.join(hook_folder, hook_file))
+        if not os.path.isdir(hook_folder):
+            os.mkdir(hook_folder)
+
+        shutil.copy(hook_file, hook_folder)
     except Exception as e:
         print(f"Erreur lors de la copie du hook : {e}")
 
