@@ -1,5 +1,7 @@
 from subprocess import CalledProcessError
+
 from src.run_command import run_command
+
 
 def install_lst(chemin_fichier: str, gestionnaire_paquets: str):
     try:

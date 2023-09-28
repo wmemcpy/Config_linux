@@ -5,16 +5,13 @@ import os
 
 os.system("sudo -v")
 
-categories: dict = {
-    "Environnement de bureau": ["KDE", "i3", "gnome"],
-    "Carte graphique": ["AMD", "Intel", "Nvidia"],
-    "Imprimantes": ["Imprimantes non HP/EPSON", "HP", "EPSON"],
-    "Customisation": ["fish", "zsh"]
-}
-selected: dict = {
-    category: [False] * len(options) for category, options in categories.items()
-}
+categories: dict = {"Environnement de bureau": ["KDE", "i3", "gnome"],
+                    "Carte graphique": ["AMD", "Intel", "Nvidia"],
+                    "Imprimantes": ["Imprimantes non HP/EPSON", "HP", "EPSON"],
+                    "Customisation": ["fish", "zsh"]}
+selected: dict = {category: [False] * len(options) for category, options in categories.items()}
 result: dict = {}
+
 
 def detecter_distribution():
     if os.path.exists('/etc/os-release'):
@@ -78,4 +75,3 @@ if __name__ == '__main__':
 
     print(result)
     log_file.close()
-

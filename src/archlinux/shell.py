@@ -1,6 +1,7 @@
-from src.run_command import run_command
-from src.archlinux.arch import AUR
 from pathlib import Path
+
+from src.archlinux.arch import AUR
+from src.run_command import run_command
 
 
 def add_alias(file=Path.home() / ".bashrc"):

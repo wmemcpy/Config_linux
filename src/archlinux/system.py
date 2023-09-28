@@ -1,8 +1,8 @@
-from pathlib import Path
 from os import rename, listdir, makedirs
 from shutil import copyfile
-from src.run_command import run_command
+
 from src.install_lst import install_lst
+from src.run_command import run_command
 
 
 def setup_pacman():
@@ -18,6 +18,7 @@ def setup_pacman():
 
     rename(pacman_src + ".tmp", pacman_src)
 
+
 def install_kernel_headers():
     kernels: list[str] = [f for f in listdir('/boot') if f.startswith('vmlinuz')]
     for kernel in kernels:
@@ -25,13 +26,8 @@ def install_kernel_headers():
 
 
 def setup_server_sound():
-    remove_packages: list[str] = [
-        "pulseaudio",
-        "jack2",
-        "pipewire-media-session",
-        "pulseaudio-bluetooth",
-        "pulseaudio-alsa"
-    ]
+    remove_packages: list[str] = ["pulseaudio", "jack2", "pipewire-media-session", "pulseaudio-bluetooth",
+        "pulseaudio-alsa"]
     for package in remove_packages:
         run_command(f"sudo pacman -Rdd --noconfirm {package}")
 

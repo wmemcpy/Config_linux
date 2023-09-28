@@ -1,11 +1,11 @@
+from main import result
 from src.archlinux.gpu.amd import install_amd
 from src.archlinux.gpu.intel import install_intel
 from src.archlinux.gpu.nvidia import install_nvidia
-from src.archlinux.system import *
 from src.archlinux.packages import *
 from src.archlinux.shell import *
+from src.archlinux.system import *
 from src.archlinux.tkg import install_kernel_tkg
-from main import result
 
 if not result["Gestionnaire d'AUR"]["yay"] and result["Gestionnaire d'AUR"]["paru"]:
     AUR = "paru"

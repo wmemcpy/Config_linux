@@ -1,9 +1,11 @@
-from src.archlinux.arch import AUR
-from os.path import isdir, join
 from os import listdir, makedirs
+from os.path import isdir, join
 from shutil import copyfile
-from src.run_command import run_command
+
+from src.archlinux.arch import AUR
 from src.install_lst import install_lst
+from src.run_command import run_command
+
 
 def install_nvidia():
     install_lst('../lst/nvidia.lst', AUR)
