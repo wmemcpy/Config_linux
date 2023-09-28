@@ -1,16 +1,34 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import urwid
-import glob
-import subprocess
 import os
 
-categories = {
+os.system("sudo -v")
+
+categories: dict = {
     "Environnement de bureau": ["KDE", "i3", "gnome"],
     "Carte graphique": ["AMD", "Intel", "Nvidia"],
     "Imprimantes": ["Imprimantes non HP/EPSON", "HP", "EPSON"],
-    "Customisation": ["Fish"]
+    "Customisation": ["fish", "zsh"]
 }
+selected: dict = {
+    category: [False] * len(options) for category, options in categories.items()
+}
+result: dict = {}
 
-selected = {category: [False] * len(options) for category, options in categories.items()}
+def detecter_distribution():
+    if os.path.exists('/etc/os-release'):
+        with open('/etc/os-release', 'r') as f:
+            for line in f.readlines():
+                if line.startswith('ID='):
+                    distribution = line.split('=')[1].strip().lower()
+                    return distribution
+    return None
+
+
+def modifier_categories(distribution, categories):
+    if distribution == 'arch' or distribution == 'archlinux':
+        categories["Gestionnaire d'AUR"] = ["yay", "paru"]
 
 
 class CustomCheckBox(urwid.CheckBox):
@@ -24,35 +42,20 @@ class CustomCheckBox(urwid.CheckBox):
         selected[self.category][self.index] = not selected[self.category][self.index]
 
 
-def find_script_file(option):
-    option_lower = option.lower()
-    for script_file in glob.glob("./src/arch/*.py"):
-        script_name = os.path.basename(script_file)[:-3]
-        if script_name.lower() == option_lower:
-            return script_name + '.py'
-    return None
-
-
 def execute_scripts(button):
-    for category, options in categories.items():
-        for i, option in enumerate(options):
-            if selected[category][i]:
-                script_name = find_script_file(option)
-                if script_name:
-                    script_path = f"./src/arch/{script_name}"
-                    subprocess.run(["python", script_path])
-                else:
-                    print(f"No script found for {option}")
-    clear_and_exit()
+    global result
+    result = {category: {option: selected[category][i] for i, option in enumerate(options)} for category, options in
+              categories.items()}
+    clear_and_exit(button)
 
 
-def clear_and_exit(button=None):
-    os.system('clear')
+def clear_and_exit(button):
+    # os.system('clear')
     raise urwid.ExitMainLoop()
 
 
 def create_menu():
-    items = []
+    items: list = []
     for category, options in categories.items():
         items.append(urwid.Text(category))
         for i, option in enumerate(options):
@@ -64,8 +67,15 @@ def create_menu():
     return urwid.ListBox(urwid.SimpleFocusListWalker(items))
 
 
-menu = create_menu()
-loop = urwid.MainLoop(menu)
-loop.run()
+if __name__ == '__main__':
+    distro: str = detecter_distribution()
+    print(f"{distro} détectée.")
+    modifier_categories(distro, categories)
 
-print(selected)
+    menu = create_menu()
+    loop = urwid.MainLoop(menu)
+    loop.run()
+
+    print(result)
+    log_file.close()
+

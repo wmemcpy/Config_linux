@@ -1,0 +1,14 @@
+ghostscript
+gsfonts
+cups
+cups-filters
+cups-pdf
+system-config-printer
+avahi
+foomatic-db-engine
+foomatic-db
+foomatic-db-ppds
+foomatic-db-nonfree
+foomatic-db-nonfree-ppds
+gutenprint
+foomatic-db-gutenprint-ppds

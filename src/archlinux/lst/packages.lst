@@ -17,5 +17,15 @@ ntfs-3g
 fuse2
 bash-completion
 xdg-desktop-portal-gtk
+xpadneo-dkms
 ffmpegthumbs
 vlc
+visual-studio-code-bin
+gdb
+valgrind
+clang
+make
+git
+vim
+man-db
+man-pages
