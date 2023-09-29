@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from os import system
+from os import system, remove
 from os.path import exists
 
 import urwid
@@ -75,6 +75,10 @@ if __name__ == '__main__':
     distro: str = detecter_distribution()
     print(f"{distro} détectée.")
     modifier_categories(distro, categories)
+
+    # delete log file
+    if exists('log.log'):
+        remove('log.log')
 
     menu = create_menu()
     loop = urwid.MainLoop(menu)

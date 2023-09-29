@@ -10,14 +10,15 @@ from src.archlinux.tkg import install_kernel_tkg
 
 def arch_main(result):
     if not result["Gestionnaire d'AUR"]["yay"] and result["Gestionnaire d'AUR"]["paru"]:
-        AUR = "paru"
+        aur: str = "paru"
     else:
-        AUR = "yay"
+        aur: str = "yay"
+
     # Packages
     install_chaotic_aur()
-    enable_fastest_mirror(AUR)
-    install_aur(AUR)
-    config_flatpak(AUR)
+    enable_fastest_mirror(aur)
+    install_aur(aur)
+    config_flatpak(aur)
 
     # System
     setup_pacman()
@@ -28,23 +29,23 @@ def arch_main(result):
 
     # Software
     install_lst('../lst/flatpak.lst', 'flatpak')
-    install_lst('lst/packges.lst', AUR)
+    install_lst('lst/packges.lst', aur)
 
     # Shell
     if result["Shell"]["fish"]:
-        install_shell(AUR, "fish")
+        install_shell(aur, "fish")
     if result["Shell"]["zsh"]:
-        install_shell(AUR, "zsh")
+        install_shell(aur, "zsh")
 
     # GPU
     if result["GPU"]["AMD"]:
-        install_amd(AUR)
+        install_amd(aur)
     if result["GPU"]["Intel"]:
-        install_intel(AUR)
+        install_intel(aur)
     if result["GPU"]["Nvidia"]:
-        install_nvidia(AUR)
+        install_nvidia(aur)
 
     install_printer(result["Imprimantes"]["Imprimantes non HP/EPSON"], result["Imprimantes"]["HP"],
                     result["Imprimantes"]["EPSON"])
     # Kernel
-    install_kernel_tkg(AUR)
+    install_kernel_tkg(aur)
