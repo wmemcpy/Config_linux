@@ -2,7 +2,7 @@ from datetime import datetime
 from subprocess import run, PIPE, CalledProcessError
 
 
-def run_command(command: str, log: bool = False, log_file: str = "log.log"):
+def run_command(command: str, log_file: str = "log.log"):
     timestamp = datetime.now().strftime('[%H:%M:%S]: ')
 
     log_message = f"{timestamp} {' '.join(command)}\n"
@@ -13,7 +13,8 @@ def run_command(command: str, log: bool = False, log_file: str = "log.log"):
         file.close()
 
     try:
-        result = run(command, check=True, stdout=PIPE, stderr=PIPE, text=True)
+
+        result = run(command, shell=True, stdout=PIPE, stderr=PIPE, check=True, encoding='utf-8')
         return result.stdout
 
 

@@ -7,19 +7,16 @@ from src.archlinux.shell import *
 from src.archlinux.system import *
 from src.archlinux.tkg import install_kernel_tkg
 
-AUR = "yay"
-
 
 def arch_main(result):
-    global AUR
     if not result["Gestionnaire d'AUR"]["yay"] and result["Gestionnaire d'AUR"]["paru"]:
         AUR = "paru"
     else:
         AUR = "yay"
     # Packages
-    install_aur(AUR)
     install_chaotic_aur()
     enable_fastest_mirror(AUR)
+    install_aur(AUR)
     config_flatpak(AUR)
 
     # System
