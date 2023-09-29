@@ -6,7 +6,7 @@ rebuild-detector
 mkinitcpio-firmware
 xdg-desktop-portal
 xdg-desktop-portal-gnome
-neofetch
+fastfetch
 power-profiles-daemon
 hunspell-fr
 p7zip
@@ -19,8 +19,6 @@ bash-completion
 xdg-desktop-portal-gtk
 xpadneo-dkms
 ffmpegthumbs
-vlc
-visual-studio-code-bin
 gdb
 valgrind
 clang
@@ -29,3 +27,7 @@ git
 vim
 man-db
 man-pages
+btop
+htop
+mpv
+bat

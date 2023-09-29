@@ -3,8 +3,6 @@
 import urwid
 import os
 
-os.system("sudo -v")
-
 categories: dict = {"Environnement de bureau": ["KDE", "i3", "gnome"],
                     "Carte graphique": ["AMD", "Intel", "Nvidia"],
                     "Imprimantes": ["Imprimantes non HP/EPSON", "HP", "EPSON"],
@@ -74,4 +72,3 @@ if __name__ == '__main__':
     loop.run()
 
     print(result)
-    log_file.close()

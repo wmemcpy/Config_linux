@@ -10,6 +10,7 @@ def run_command(command: str, log: bool = False, log_file: str = "log.log"):
     if log_file:
         with open(log_file, 'a') as file:
             file.write(log_message)
+        file.close()
 
     try:
         result = run(command, shell=log, check=True, stdout=PIPE, stderr=PIPE, text=True)
