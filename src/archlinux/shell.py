@@ -4,6 +4,8 @@ from src.run_command import run_command
 
 
 def add_alias(aur: str, file=Path.home() / ".bashrc"):
+    print("Ajout de l'alias u")
+
     if aur == "paru":
         alias = "alias u='paru -Syy --needed archlinux-keyring && paru -c && flatpak update -y'"
     else:
@@ -16,6 +18,8 @@ def add_alias(aur: str, file=Path.home() / ".bashrc"):
 
 
 def install_shell(aur: str, shell: str = "bash"):
+    print(f"Configuraiton de {shell}")
+
     run_command(f"{aur} -S --needed --noconfirm {shell}")
     if shell == "zsh":
         add_alias(aur, Path.home() / ".zshrc")

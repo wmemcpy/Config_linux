@@ -2,6 +2,8 @@ from src.install_lst import install_lst
 
 
 def install_printer(aur: str, printer: bool = False, hp: bool = False, epson: bool = False):
+    print("Installation des drivers d'imprimantes")
+
     if printer or hp or epson:
         install_lst("lst/printer.lst", aur)
     if hp:

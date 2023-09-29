@@ -6,6 +6,8 @@ from src.run_command import run_command
 
 
 def setup_pacman():
+    print("Configuration de pacman")
+
     uncomment: list[str] = ["#VerbosePkgLists", "#ParallelDownloads", "#Color"]
     pacman_src: str = "/etc/pacman.conf"
 
@@ -20,12 +22,16 @@ def setup_pacman():
 
 
 def install_kernel_headers():
+    print("Installation des headers des kernels")
+
     kernels: list[str] = [f for f in listdir('/boot') if f.startswith('vmlinuz')]
     for kernel in kernels:
         run_command(f"sudo pacman -S --needed --noconfirm {kernel.replace('vmlinuz-', '')}-headers")
 
 
 def setup_server_sound():
+    print("Configuration du server audio")
+
     remove_packages: list[str] = ["pulseaudio", "jack2", "pipewire-media-session", "pulseaudio-bluetooth",
         "pulseaudio-alsa"]
     for package in remove_packages:
@@ -35,6 +41,8 @@ def setup_server_sound():
 
 
 def setup_grub():
+    print("Configuration de grub")
+
     grub_hook: str = "/etc/pacman.d/hooks/"
 
     makedirs(grub_hook, exist_ok=True)
@@ -42,5 +50,7 @@ def setup_grub():
 
 
 def setup_firewall():
+    print("Configuration du firewall")
+
     run_command("sudo pacman -S --needed --noconfirm ufw")
     run_command("sudo systemctl enable ufw.service")
