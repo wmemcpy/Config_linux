@@ -6,6 +6,7 @@ from src.archlinux.packages import *
 from src.archlinux.shell import *
 from src.archlinux.system import *
 from src.archlinux.tkg import install_kernel_tkg
+from src.archlinux.drivers import install_printer
 
 if not result["Gestionnaire d'AUR"]["yay"] and result["Gestionnaire d'AUR"]["paru"]:
     AUR = "paru"
@@ -45,4 +46,6 @@ def main():
     if result["GPU"]["Nvidia"]:
         install_nvidia()
 
+    install_printer(result["Imprimantes"]["Imprimantes non HP/EPSON"], result["Imprimantes"]["HP"], result["Imprimantes"]["EPSON"])
+    # Kernel
     install_kernel_tkg()
