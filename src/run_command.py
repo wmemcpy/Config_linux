@@ -1,5 +1,5 @@
-from subprocess import run, PIPE, CalledProcessError
 from datetime import datetime
+from subprocess import run, PIPE, CalledProcessError
 
 
 def run_command(command: str, log: bool = False, log_file: str = "log.log"):

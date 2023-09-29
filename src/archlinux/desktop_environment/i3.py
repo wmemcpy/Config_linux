@@ -1,7 +1,8 @@
 from pathlib import Path
 
-from src.install_lst import install_lst
 from src.archlinux.arch import AUR
+from src.install_lst import install_lst
+
 
 def shortcut():
     config_file = open(Path.home() / ".config/i3/config", "a")
@@ -10,6 +11,7 @@ def shortcut():
         config_file.write(f.read())
 
     config_file.close()
+
 
 def install_i3():
     install_lst("../lst/i3.lst", AUR)

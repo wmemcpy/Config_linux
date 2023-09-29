@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from src.archlinux.arch import main as arch_main
-from urwid import CheckBox, ExitMainLoop, Divider, Button, ListBox, SimpleFocusListWalker, MainLoop, Text
-from os.path import exists
 from os import system
+from os.path import exists
+
+import urwid
+
+from src.archlinux.arch import arch_main
 
 categories: dict = {"Environnement de bureau": ["KDE", "i3", "gnome"],
                     "Carte graphique": ["AMD", "Intel", "Nvidia"],
@@ -12,6 +14,7 @@ categories: dict = {"Environnement de bureau": ["KDE", "i3", "gnome"],
 selected: dict = {category: [False] * len(options) for category, options in categories.items()}
 
 result = {}
+
 
 def detecter_distribution():
     if exists('/etc/os-release'):
@@ -28,7 +31,7 @@ def modifier_categories(distribution, category):
         category["Gestionnaire d'AUR"] = ["yay", "paru"]
 
 
-class CustomCheckBox(CheckBox):
+class CustomCheckBox(urwid.CheckBox):
     def __init__(self, label, category, index):
         super().__init__(label)
         self.category = category
@@ -46,25 +49,25 @@ def execute_scripts(button):
 
     system('clear')
     print(f"Résultat:\n{result}")
-    arch_main()
+    arch_main(result)
     clear_and_exit(button)
 
 
 def clear_and_exit(button):
-    raise ExitMainLoop()
+    raise urwid.ExitMainLoop()
 
 
 def create_menu():
     items: list = []
     for category, options in categories.items():
-        items.append(Text(category))
+        items.append(urwid.Text(category))
         for i, option in enumerate(options):
             checkbox = CustomCheckBox(option, category, i)
             items.append(checkbox)
-    items.append(Divider())
-    items.append(Button("Installer", on_press=execute_scripts))
-    items.append(Button("Annuler", on_press=clear_and_exit))
-    return ListBox(SimpleFocusListWalker(items))
+    items.append(urwid.Divider())
+    items.append(urwid.Button("Installer", on_press=execute_scripts))
+    items.append(urwid.Button("Annuler", on_press=clear_and_exit))
+    return urwid.ListBox(urwid.SimpleFocusListWalker(items))
 
 
 if __name__ == '__main__':
@@ -73,5 +76,5 @@ if __name__ == '__main__':
     modifier_categories(distro, categories)
 
     menu = create_menu()
-    loop = MainLoop(menu)
+    loop = urwid.MainLoop(menu)
     loop.run()

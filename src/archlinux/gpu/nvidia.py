@@ -2,13 +2,12 @@ from os import listdir, makedirs
 from os.path import isdir, join
 from shutil import copyfile
 
-from src.archlinux.arch import AUR
 from src.install_lst import install_lst
 from src.run_command import run_command
 
 
-def install_nvidia():
-    install_lst('../lst/nvidia.lst', AUR)
+def install_nvidia(aur: str):
+    install_lst('../lst/nvidia.lst', aur)
 
     if isdir('/boot/loader/entries/'):
         for entry in listdir('/boot/loader/entries/'):
