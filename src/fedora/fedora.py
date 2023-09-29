@@ -1,4 +1,4 @@
-import subprocess
+from src.run_command import run_command
 
 def enable_fastest_mirror():
     try:

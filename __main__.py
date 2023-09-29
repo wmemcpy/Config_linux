@@ -29,6 +29,7 @@ def detecter_distribution():
 def modifier_categories(distribution, category):
     if distribution == 'arch' or distribution == 'archlinux':
         category["Gestionnaire d'AUR"] = ["yay", "paru"]
+        selected["Gestionnaire d'AUR"] = [False for _ in range(len(category["Gestionnaire d'AUR"]))]
 
 
 class CustomCheckBox(urwid.CheckBox):
